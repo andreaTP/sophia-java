@@ -7,18 +7,27 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/libLibSophiaJava" prefix_auto="1" extension_auto="1" />
+				<Option output="../SophiaJava" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-fpic" />
+					<Add directory="/usr/lib/jvm/java-8-oracle/include" />
+					<Add directory="/usr/lib/jvm/java-8-oracle/include/linux" />
 				</Compiler>
+				<Linker>
+					<Add library="./libsophia.so" />
+					<Add directory="/usr/lib/jvm/java-8-oracle/include" />
+					<Add directory="/usr/lib/jvm/java-8-oracle/include/linux" />
+				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/libLibSophiaJava" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/LibSophiaJava" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -35,9 +44,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="SophiaInterface.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="eu_unicredit_sophia_SophiaInterface.h" />
+		<Unit filename="sophia.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

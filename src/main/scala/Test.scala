@@ -1,6 +1,6 @@
 import eu.unicredit.sophia._
 
-object Test extends App {
+object Test /*extends App*/ {
   
   println("Starting!!!")
   

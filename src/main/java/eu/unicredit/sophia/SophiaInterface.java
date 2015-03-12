@@ -22,8 +22,8 @@ public class SophiaInterface {
 		//memory utils
 		public native MemoryArea allocate_mem(long capacity);
 		public native MemoryArea get_mem(long addr, long capacity);
-		public native long get_mem_capacity(java.nio.Buffer buffer);
-		public native long get_mem_address(java.nio.Buffer buffer);
+		public native long get_mem_capacity(Buffer buffer);
+		public native long get_mem_address(Buffer buffer);
 		public native void free_mem(long addr);
 	
 		
