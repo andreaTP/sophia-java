@@ -14,8 +14,8 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-O3" />
 					<Add option="-Wall" />
-					<Add option="-g" />
 					<Add option="-fpic" />
 					<Add directory="/usr/lib/jvm/java-8-oracle/include" />
 					<Add directory="/usr/lib/jvm/java-8-oracle/include/linux" />

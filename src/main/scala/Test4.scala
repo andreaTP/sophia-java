@@ -1,3 +1,5 @@
+/*
+
 object Test4 extends App {
 
   import java.sql.Connection;
@@ -41,3 +43,4 @@ import org.h2.tools.DeleteDbFiles;
   }
   
 }
+*/

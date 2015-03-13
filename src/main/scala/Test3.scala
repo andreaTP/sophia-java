@@ -1,4 +1,4 @@
-
+/*
 import eu.unicredit.reactive_aerospike.client._
 import eu.unicredit.reactive_aerospike.data._
 import eu.unicredit.reactive_aerospike.data.AerospikeValue._
@@ -38,3 +38,4 @@ object Test3 extends App {
 
 
 }
+*/
