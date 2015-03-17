@@ -4,7 +4,7 @@ import eu.unicredit.sophia.client._
 import scala.concurrent.Promise
 import eu.unicredit.sophia.SophiaInterface
 
-class SophiaClient {
+class SophiaClient extends ReusableStrings {
   
   val si = new SophiaInterface()
   
@@ -13,7 +13,7 @@ class SophiaClient {
   
   val prom_ctl = Promise[Long]
   lazy val ctl = prom_ctl.future.value.get.get
-  
+   
   def start = {
 	prom_env.success(si.sp_env())
 	prom_ctl.success(si.sp_ctl(env))
@@ -39,11 +39,11 @@ class SophiaClient {
   }
   
   def put(db: Long, key: Allocable, value: Allocable) = {
-    sophiaUse(all("key"), all("value"), key, value) {map => {
+    sophiaUse(key, value) {map => {
        	val o = si.sp_object(db)
     	
-    	si.sp_set(o, map("key"), map(key), key.length)
-    	si.sp_set(o, map("value"), map(value), value.length)
+    	si.sp_set(o, keyPtr, map(key), key.length)
+    	si.sp_set(o, valuePtr, map(value), value.length)
     	
     	val res = si.sp_set(db, o);
     	if (res != 0) throw new Exception("Cannot insert object in db "+res)
@@ -52,14 +52,14 @@ class SophiaClient {
   }
   
   def get(db: Long, key: Allocable): Allocable = {
-    sophiaUse(all("key"), all("value"), key) {map => {
+    sophiaUse(key) {map => {
     	val valuesize = si.allocate_mem(4)
        	val o = si.sp_object(db)
        	
-    	si.sp_set(o, map("key"), map(key), key.length)
+    	si.sp_set(o, keyPtr, map(key), key.length)
     	
     	val res = si.sp_get(db, o)
-    	val resultPtr = si.sp_get(res, map("value"), valuesize.getAddress())
+    	val resultPtr = si.sp_get(res, valuePtr, valuesize.getAddress())
   
     	if (resultPtr == -1) throw new Exception("Cannot read result "+resultPtr) 
     

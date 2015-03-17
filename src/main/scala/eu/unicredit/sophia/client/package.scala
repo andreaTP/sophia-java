@@ -11,6 +11,11 @@ package object client {
     def array: Array[Byte] 
   }
   
+  def getCString(array: Array[Byte]) =
+    new String(
+      (for {i <- 0.to(array.length-2)}
+      yield {array(i).toChar}).toArray)    
+  
   case class AllocableString(str: String) extends Allocable {
     def length: Long = str.length()+1
     def writeByteArray: (ByteBuffer => Unit) = (buffer: ByteBuffer) => {
@@ -24,6 +29,11 @@ package object client {
       case as: AllocableString => as.str == str
       case s: String => s == str
     }
+    
+    override def toString = 
+      new String(
+      (for {i <- 0.to(array.length-2)}
+      yield {array(i).toChar}).toArray)
   }
   
   case class AllocableByteArray(ba: Array[Byte]) extends Allocable {
@@ -32,6 +42,11 @@ package object client {
       buffer.put(ba)
     }
     def array = ba
+    
+    override def toString = 
+      new String(
+      (for {i <- 0.to(array.length-1)}
+      yield {array(i).toChar}).toArray)
   }
   
   /*
