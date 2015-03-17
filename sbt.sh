@@ -1,0 +1,1 @@
+sbt -Djava.library.path=./
