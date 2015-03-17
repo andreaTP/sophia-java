@@ -2,7 +2,7 @@
 import eu.unicredit.sophia.client.SophiaClient
 
 object Test2 extends App {
-/*
+
   println("Ci riproviamo!")
   
   val client = new SophiaClient()
@@ -24,8 +24,9 @@ object Test2 extends App {
   client.stop
   
   println("fine")
-*/  
+
   
+  /*
   println("Performance test")
   
   
@@ -63,5 +64,7 @@ object Test2 extends App {
       System.exit(0)
     }
   }
+  * 
+  */
   
 }
