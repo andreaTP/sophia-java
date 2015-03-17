@@ -69,7 +69,7 @@ public class SophiaInterface {
 		//SP_API int   sp_commit(void*, ...);
 		//sp_cursor(ctl) Create cursor over all configuration values (single order only).
 		//sp_cursor(database, object) Create a database cursor. Object might have position key and iteration order set. Supported orders: ">", ">=", "<, "<=".
-		public native long sp_commit(long... args);
+		public native int sp_commit(long... args);
 		//SP_API void *sp_begin(void*, ...);
 		//sp_begin(env): create a transaction
 		public native long sp_begin(long... args);

@@ -130,9 +130,9 @@ JNIEXPORT jint JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1drop
 /*
  * Class:     eu_unicredit_sophia_SophiaInterface
  * Method:    sp_commit
- * Signature: ([J)J
+ * Signature: ([J)I
  */
-JNIEXPORT jlong JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1commit
+JNIEXPORT jint JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1commit
   (JNIEnv *, jobject, jlongArray);
 
 /*
