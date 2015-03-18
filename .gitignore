@@ -1,6 +1,9 @@
 storage
 LibSophiaJava/bin
 LibSophiaJava/obj
+LibSophiaJava/*.o
+LibSophiaJava.so
+libsophia.so
 project
 target
 test*

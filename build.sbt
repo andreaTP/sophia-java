@@ -1,5 +1,5 @@
 
-name := "Sophia_DB_JNI"
+name := "Sophia_Java"
 
 organization := "unicredit"
 
