@@ -7,3 +7,7 @@ libsophia.so
 project
 target
 test*
+.cache
+.classpath
+.project
+
