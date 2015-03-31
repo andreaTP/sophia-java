@@ -159,6 +159,14 @@ JNIEXPORT jint JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1prepare
 JNIEXPORT jlong JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1type
   (JNIEnv *, jobject, jlongArray);
 
+/*
+ * Class:     eu_unicredit_sophia_SophiaInterface
+ * Method:    sp_cursor
+ * Signature: ([J)J
+ */
+JNIEXPORT jlong JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1cursor
+  (JNIEnv *, jobject, jlongArray);
+
 #ifdef __cplusplus
 }
 #endif

@@ -54,27 +54,39 @@ class SophiaClient extends ReusableStrings {
     get(db, key, db)
   def get(db: Long, key: Allocable, transaction: Long): Allocable = {
     sophiaUse(key) {map => {
-    	val valuesize = si.allocate_mem(4)
-       	val o = si.sp_object(db)
+      val o = si.sp_object(db)
        	
     	si.sp_set(o, keyPtr, map(key), key.length)
     	
     	val res = si.sp_get(transaction, o)
-    	val resultPtr = si.sp_get(res, valuePtr, valuesize.getAddress())
-  
-    	if (resultPtr == -1) throw new Exception("Cannot read result "+resultPtr) 
-    
-       	val size =  valuesize.buffer.get() + (valuesize.buffer.get()<<8)
-       	
-       	val resultArr = si.get_mem(resultPtr, size)
-  
-       	val arr: Array[Byte] = new Array(size)
-       	resultArr.buffer.get(arr)
-       	     	
-    	val result = AllocableByteArray(arr)
-    	
-    	result
+      
+      getElem(valuePtr, res)
     }}(si)
+  }
+  
+  def getElem(name: Long, ptr: Long): Allocable = {
+    val valuesize = si.allocate_mem(4)
+    
+    val value = si.sp_get(ptr, name, valuesize.getAddress())
+   
+    val b0lsb: Long = 0x000000FF & (valuesize.buffer.get() & 0xFF)
+    val b0msb: Long = 0x0000FF00 & ((valuesize.buffer.get() & 0xFF) << 8)
+    val b1lsb: Long = 0x00FF0000 & ((valuesize.buffer.get() & 0xFF) << 16)
+    val b1msb: Long = 0xFF000000 & ((valuesize.buffer.get() & 0xFF) << 24)
+    valuesize.buffer.rewind()
+    
+    val size =  b0lsb + b0msb + b1lsb + b1msb 
+   
+   
+   val resultArr = si.get_mem(value, size)
+  
+   val arr: Array[Byte] = new Array(size.toInt)
+   resultArr.buffer.get(arr)
+              
+   val result = AllocableByteArray(arr)
+      
+   si.free_mem(valuesize.getAddress())
+   result
   }
   
   def delete(db: Long, key: Allocable): Int =
@@ -114,6 +126,11 @@ class SophiaClient extends ReusableStrings {
     si.sp_destroy(env)
   }
   
+  def drop(db: Long) {
+    si.sp_drop(db)
+  }
+  
   
   def all(str: String) = AllocableString(str)
+  
 }

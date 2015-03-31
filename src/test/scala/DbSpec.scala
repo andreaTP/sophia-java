@@ -11,8 +11,6 @@ class DbSpec extends FlatSpec with SequentialNestedSuiteExecution {
 	  val ctl = si.sp_ctl(env)
 	  
 	  val destroyed = si.sp_destroy(env)
-    
-	  println(s"Destroyed ${destroyed}")
 	  
 	  assert { destroyed === 0 }
   }

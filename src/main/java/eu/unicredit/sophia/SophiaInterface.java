@@ -76,6 +76,10 @@ public class SophiaInterface {
 		//SP_API int   sp_prepare(void*, ...);
 		//???
 		public native int sp_prepare(long... args);
+		//SP_API void *sp_cursor(void*, ...);
+		//sp_cursor(ctl) Create cursor over all configuration values (single order only).
+		//sp_cursor(database, object)	Create a database cursor. Object might have position key and iteration
+		public native long sp_cursor(long... args);
 		//SP_API void *sp_type(void*, ...);
 		//???
 		public native long sp_type(long... args);

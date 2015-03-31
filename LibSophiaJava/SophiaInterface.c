@@ -341,3 +341,27 @@ jlong JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1type
     };
     return (jlong)ret;
 }
+
+jlong JNICALL Java_eu_unicredit_sophia_SophiaInterface_sp_1cursor
+  (JNIEnv * env, jobject obj, jlongArray args)
+{
+    jlong* array = (*env)->GetLongArrayElements(env, args,JNI_FALSE);
+    jint size = (*env)->GetArrayLength(env, args);
+    void* ret = NULL;
+    switch(size) {
+      case 0:
+        printf("Not supported\n");
+        break;
+      case 1:
+        ret = sp_cursor((void*)array[0]);
+        break;
+      case 2:
+        ret = sp_cursor((void*)array[0],
+                        (void*)array[1]);
+        break;
+      default:
+        printf("Not supported\n");
+        break;
+    };
+    return (jlong)ret;
+}
