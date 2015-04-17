@@ -1,15 +1,23 @@
 MAKEFLAGS = --no-print-directory
 
-TARGETS = \
+OS=$(shell uname)
+
+ifeq (${OS},Darwin)
+	LIBEXTENSION=jnilib
+	LINK=-dynamiclib -framework JavaVM -o ../libSophiaJava.${LIBEXTENSION} SophiaInterface.o ./libsophia.so
+else 
+	LIBEXTENSION=so
+	LINK=-shared -L$JAVA_HOME/include -L$JAVA_HOME/include/linux SophiaInterface.o  -o ../libSophiaJava.so  ./libsophia.so
+endif
 
 default: all
 
 clean: FORCE
 	rm *.o
-	rm -f ../libSophiaInterface.so
+	rm -f ../libSophiaInterface.*
+	rm -f ../libSophiaJava.*
 
 all:
-	gcc -Wall -O3 -fpic -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux -c SophiaInterface.c -o SophiaInterface.o
-	g++ -shared -L$JAVA_HOME/include -L$JAVA_HOME/include/linux SophiaInterface.o  -o ../libSophiaJava.so  ./libsophia.so
-
+	@cc -Wall -O3 -fpic -c -I${JAVA_HOME}/include SophiaInterface.c -I${JAVA_HOME}/include/${OS} -o SophiaInterface.o
+	@cc ${LINK}
 FORCE:
